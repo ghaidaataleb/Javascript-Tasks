@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function aveArray(arr) {
+  if (arr.length === 0) {
+    return 0; // Return 0 for an empty array to avoid division by zero.
+  }
+  
+  const sum = arr.reduce((accumulator, currentValue) => accumulator + currentValue);
+  return sum / arr.length;
+}
+
+var nums = [1, 2, 3, 8, 9];
+var average = aveArray(nums);
+console.log(average);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./style.css">
+    <title>Phone Store</title>
+</head>
+<body>
+  <section class="container">
+
+      <div class="divForm">
+          <form action="" id="mobForm">
+            <fieldset>
+              <legend>Mobile Form</legend>
+            <label for="userName">Name</label>
+            <br><input type="text" name="userName" id="userName">
+            <br><br>
+            <label for="typeName">Type</label>
+            <br>
+            <select name="typeNameD" id="typeName">
+              <option value="samsung">samsung</option>
+              <option value="apple">apple</option>
+              <option value="Huawei">Huawei</option>
+            </select>
+            <br><br>
+            <label for="phonePrice">Price</label>
+            <br><input type="number" name="phonePrice" id="phonePrice" min="50" max="500">
+            <br><br>
+            <button type="submit">Add Device</button> 
+           </fieldset>
+        </form>
+      </div>
+      <div class="divTable">
+        <table id="tableCon">
+          <thead>
+            <tr>
+              <th>Client Name</th>
+              <th>Phone Type</th>
+              <th>Price</th>
+              <th>Phone Condition</th>
+            </tr>
+          </thead>
+          <tbody id="boadTa"></tbody>
+        </table>
+      </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("mobForm");
+  const tbody = document.getElementById("boadTa");
+  const table = document.getElementById("tableCon");
+  
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const userName = this.userName.value.trim();
+    const typeName = this.typeName.value;
+    const phonePrice = parseInt(this.phonePrice.value);
+
+    if (!userName || !typeName || isNaN(phonePrice) || phonePrice < 50 || phonePrice > 500) {
+      alert("Please fill in the form correctly.");
+      return;
+    }
+
+    const phoneCondition = phonePrice > 100 ? "New Device" : "Used";
+
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${userName}</td>
+      <td>${typeName}</td>
+      <td>${phonePrice}</td>
+      <td>${phoneCondition}</td>
+    `;
+    tbody.appendChild(newRow);
+
+    saveToLocalStorage(userName, typeName, phonePrice, phoneCondition);
+
+    form.reset();
+  });
+
+  // Render data from local storage
+  function renderDataFromLocalStorage() {
+    const data = getDataFromLocalStorage();
+    data.forEach(item => {
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+        <td>${item.userName}</td>
+        <td>${item.typeName}</td>
+        <td>${item.phonePrice}</td>
+        <td>${item.phoneCondition}</td>
+      `;
+      tbody.appendChild(newRow);
+    });
+  }
+
+  // Save data to local storage
+  function saveToLocalStorage(userName, typeName, phonePrice, phoneCondition) {
+    let data = getDataFromLocalStorage();
+    data.push({ userName, typeName, phonePrice, phoneCondition });
+    localStorage.setItem("phoneStoreData", JSON.stringify(data));
+  }
+
+  // Get data from local storage
+  function getDataFromLocalStorage() {
+    let data = localStorage.getItem("phoneStoreData");
+    return data ? JSON.parse(data) : [];
+  }
+
+  renderDataFromLocalStorage();
+});
+
+  </script>
+</body>
+</html>

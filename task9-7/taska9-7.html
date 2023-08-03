@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   ,
+</head>
+<body>
+    <script>
+        var num1=(parseInt (prompt("enter num 1")));
+        var num2=(parseInt (prompt("enter num 2")));
+        var opration=prompt("enter opration");
+
+         var result =0;
+        if(opration==="+"){
+
+            result=num1+num2;
+
+        }
+        else if ( opration==="-"){
+
+             result=num1-num2;
+
+        }
+        else if (opration==="*"){
+
+            result=num1*num2;
+
+         }
+         else if(opration==="/")
+         {
+            result=num1/num2;
+         }
+         else{
+            result="invalid";
+         }
+
+         console.log(result);
+    </script>
+</body>
+</html>
